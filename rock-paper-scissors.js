@@ -113,3 +113,42 @@ computerMove= 'scissors' ;
 }
 
 }
+function handleClick(move) {
+            disableButtons();
+            startCountdown(3, move);
+        }
+
+        function disableButtons() {
+            document.getElementById('rock-button').disabled = true;
+            document.getElementById('paper-button').disabled = true;
+            document.getElementById('scissors-button').disabled = true;
+        }
+
+        function enableButtons() {
+            document.getElementById('rock-button').disabled = false;
+            document.getElementById('paper-button').disabled = false;
+            document.getElementById('scissors-button').disabled = false;
+        }
+
+        function startCountdown(seconds, move) {
+            let countdownElement = document.getElementById('countdown');
+            countdownElement.textContent = seconds;
+            let countdownInterval = setInterval(() => {
+                seconds--;
+                if (seconds > 0) {
+                    countdownElement.textContent = seconds;
+                } else {
+                    clearInterval(countdownInterval);
+                    countdownElement.textContent = '';
+                    enableButtons();
+                    if (move === 'rock') {
+                        pickcomputerMoverock();
+                    } else if (move === 'paper') {
+                        pickcomputerMove();
+                    } else if (move === 'scissors') {
+                        pickcomputerMovescissors();
+                    }
+                    playgame(move);
+                }
+            }, 1000);
+        }
